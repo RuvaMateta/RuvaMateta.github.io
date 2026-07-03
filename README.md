@@ -1,4 +1,3 @@
-# Ruvarashe Mateta — Biotechnology & Bioinformatics Student
 
 Welcome to my professional portfolio.
 I am a biotechnology and bioinformatics student currently engaged in a **remote internship** focused on **genetic variation** and the **evolution of tomato flavor and nutrition**.  
