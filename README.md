@@ -49,6 +49,3 @@ Alongside my academic work, I am part of the **Aspire Leaders Program (APL) Coho
 - 💼 LinkedIn: [www.linkedin.com/in/ruvarashe-mateta-993ba3316]  
 - 📧 Email: matetaruvarashe@gmail.com 
 - 🐙 GitHub: [https://github.com/ruvarashe](https://RuvaMateta.github.io/) 
-  
-
-
