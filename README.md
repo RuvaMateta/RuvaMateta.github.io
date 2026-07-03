@@ -1,4 +1,4 @@
-# BSc in Biotechnology & Bioinformatics
+# RUVARASHE MATETA-Biotechnology & Bioinformatics
 
 Welcome to my professional portfolio.
 I am a biotechnology and bioinformatics student currently engaged in a **remote internship** focused on **genetic variation** and the **evolution of tomato flavor and nutrition**.  
@@ -8,17 +8,18 @@ Alongside my academic work, I am part of the **Aspire Leaders Program (APL) Coho
 
 ## 🎓 Education
 - **Bachelor’s studies in Biotechnology & Bioinformatics**  
-  Focused on genetics, computational biology, and applied biotechnology.  
-- **O’Level & A’Level ZIMSEC Certificates**
-  Core academic credentials providing a solid base in sciences and mathematics
+  Focused on genetics, computational biology, and applied biotechnology
+- **O’Level & A’Level ZIMSEC Certificates**  
+ Strong foundation in sciences, mathematics, and applied subjects
 - **Aspire Leaders Program (APL) Cohort 2**  
-  Global leadership and professional development program.  
+ Global leadership and professional development program.  
 - **Mastuo Lab Data Science Studies**  
-  Training in applied data science and computational methods.  
+ Training in applied data science and computational methods.  
 - **Certificate of Participation — Genomac Institute Inc.**  
-  Exposure to genomics and applied biotechnology practices.  
-- **Certificates in Art and Chess**  
-  Recognition of creative and analytical skills beyond science
+  Exposure to genomics and applied biotechnology practices.
+- **Certificates in Art and Chess**
+  Recognition of creative and analytical skills beyong science.
+  
   ---
   ## 🔬 About Me
 - 🌍 Remote internship: genetic variation and tomato flavor/nutrition research  
