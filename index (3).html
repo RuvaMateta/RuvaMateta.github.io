@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruvarashe Mateta — Biotechnology &amp; Bioinformatics</title>
+<meta name="description" content="Ruvarashe Mateta — Biotechnology & Bioinformatics student working on genetic variation, tomato flavor and nutrition genomics, and applied data science.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a2b1e;
+    --ink-soft:#3c4a3d;
+    --paper:#f2f2e9;
+    --paper-raised:#fbfaf4;
+    --tomato:#c1440e;
+    --tomato-soft:#e2703f;
+    --leaf:#42592f;
+    --stem:#8b9678;
+    --line:#d7d9c5;
+    --max:1080px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    margin:0;
+    color:var(--ink);
+  }
+  a{color:inherit;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* NAV */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(242,242,233,0.9);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--max); margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:10px;
+  }
+  .nav-name{font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem; letter-spacing:0.01em;}
+  .nav-links{display:flex; gap:22px; flex-wrap:wrap; font-size:0.88rem;}
+  .nav-links a{
+    text-decoration:none; color:var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.02em;
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+    transition:border-color .2s, color .2s;
+  }
+  .nav-links a:hover{color:var(--tomato); border-color:var(--tomato);}
+
+  /* HERO */
+  .hero{padding:96px 0 40px; animation:fadeUp .7s ease both;}
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--tomato);
+    font-size:0.82rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    display:inline-block;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 4.2rem);
+    line-height:1.04;
+    letter-spacing:-0.01em;
+  }
+  .hero .role{
+    margin-top:16px;
+    font-size:clamp(1.05rem, 2vw, 1.3rem);
+    color:var(--ink-soft);
+    max-width:640px;
+  }
+  .hero .role em{
+    font-style:italic; color:var(--tomato); font-family:'Fraunces', serif;
+  }
+  .hero-meta{
+    margin-top:28px; display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .hero-tab{
+    display:flex; align-items:baseline; gap:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:0.8rem;
+    padding:8px 14px; border:1px solid var(--line); border-radius:3px;
+    background:var(--paper-raised); color:var(--ink-soft);
+  }
+  .hero-tab .k{
+    color:var(--tomato); text-transform:uppercase; letter-spacing:0.05em; font-size:0.7rem;
+  }
+
+  section{padding:64px 0;}
+  section h2{
+    font-size:clamp(1.6rem, 3vw, 2.1rem);
+    margin-bottom:8px;
+  }
+  .section-index{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--tomato-soft); font-size:0.82rem;
+    margin-bottom:10px; display:block; letter-spacing:0.05em;
+  }
+  .lede{color:var(--ink-soft); max-width:640px; margin-top:10px; margin-bottom:36px;}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:48px;}
+  @media (max-width:760px){.about-grid{grid-template-columns:1fr;}}
+  .about-text p{margin:0 0 16px;}
+  .fact-card{
+    background:var(--paper-raised); border:1px solid var(--line);
+    border-radius:4px; padding:22px 24px;
+    box-shadow:0 1px 2px rgba(26,43,30,0.04);
+  }
+  .fact-card dt{font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--stem); text-transform:uppercase; letter-spacing:0.05em; margin-top:16px;}
+  .fact-card dt:first-child{margin-top:0;}
+  .fact-card dd{margin:4px 0 0; font-size:0.98rem;}
+
+  /* TIMELINE (education) */
+  .timeline{position:relative; margin-top:8px;}
+  .timeline::before{
+    content:''; position:absolute; left:9px; top:6px; bottom:6px; width:1px; background:var(--line);
+  }
+  .tl-item{position:relative; padding:0 0 34px 40px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-dot{
+    position:absolute; left:0; top:4px; width:19px; height:19px; border-radius:50%;
+    background:var(--paper-raised); border:2px solid var(--tomato);
+  }
+  .tl-item.alt .tl-dot{border-color:var(--leaf);}
+  .tl-year{font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--tomato); letter-spacing:0.03em;}
+  .tl-item.alt .tl-year{color:var(--leaf);}
+  .tl-title{font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; margin-top:4px;}
+  .tl-desc{color:var(--ink-soft); font-size:0.96rem; margin-top:4px;}
+
+  /* RESEARCH INTERESTS */
+  .interest-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:20px;
+  }
+  .interest-card{
+    border:1px solid var(--line); border-radius:4px; padding:24px;
+    background:var(--paper-raised);
+    box-shadow:0 1px 2px rgba(26,43,30,0.04);
+    transition:border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .interest-card:hover{border-color:var(--tomato-soft); transform:translateY(-2px); box-shadow:0 6px 16px rgba(26,43,30,0.08);}
+  .interest-card .glyph{
+    font-family:'IBM Plex Mono', monospace; color:var(--tomato); font-size:0.8rem; margin-bottom:10px; display:block;
+  }
+  .interest-card h3{font-size:1.05rem; margin-bottom:8px;}
+  .interest-card p{margin:0; color:var(--ink-soft); font-size:0.92rem;}
+
+  /* SKILLS */
+  .skill-groups{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:28px 40px;}
+  @media (max-width:700px){.skill-groups{grid-template-columns:1fr;}}
+  .skill-group h3{
+    font-size:0.95rem; font-family:'IBM Plex Mono', monospace; text-transform:uppercase;
+    letter-spacing:0.04em; color:var(--leaf); margin-bottom:14px; font-weight:500;
+  }
+  .tags{display:flex; flex-wrap:wrap; gap:9px;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:0.8rem;
+    padding:6px 12px; border-radius:3px; border:1px solid var(--line);
+    background:var(--paper-raised); color:var(--ink-soft);
+  }
+
+  /* PROJECTS */
+  .project-list{display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:4px; overflow:hidden;}
+  .project{
+    background:var(--paper-raised); padding:28px 26px;
+    display:grid; grid-template-columns:120px 1fr; gap:22px;
+  }
+  @media (max-width:640px){.project{grid-template-columns:1fr; gap:10px;}}
+  .project .status{
+    font-family:'IBM Plex Mono', monospace; font-size:0.74rem; letter-spacing:0.04em;
+    color:var(--tomato); text-transform:uppercase; height:fit-content;
+  }
+  .project .status.onsite{color:var(--leaf);}
+  .project h3{font-size:1.15rem; margin-bottom:6px;}
+  .project p{margin:0; color:var(--ink-soft); font-size:0.95rem;}
+  .project .where{
+    display:block; margin-top:10px; font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem; color:var(--stem);
+  }
+
+  /* CONTACT */
+  .contact{
+    background:var(--ink); color:var(--paper);
+    border-radius:6px; padding:52px 44px;
+    display:grid; grid-template-columns:1.2fr 1fr; gap:36px;
+    box-shadow:0 12px 32px rgba(26,43,30,0.18);
+  }
+  @media (max-width:700px){.contact{grid-template-columns:1fr; padding:40px 26px;}}
+  .contact h2{color:var(--paper);}
+  .contact .lede2{color:#c9d1c2; max-width:420px; margin-top:12px;}
+  .contact-links{display:flex; flex-direction:column; gap:16px; justify-content:center;}
+  .contact-links a{
+    text-decoration:none; display:flex; align-items:center; gap:12px;
+    font-family:'IBM Plex Mono', monospace; font-size:0.95rem;
+    color:var(--paper); border-bottom:1px solid rgba(242,242,233,0.2);
+    padding-bottom:10px; transition:color .2s, border-color .2s;
+  }
+  .contact-links a:hover{color:var(--tomato-soft); border-color:var(--tomato-soft);}
+  .contact-links a.static:hover{color:var(--paper); border-color:rgba(242,242,233,0.2); cursor:default;}
+  .contact-links .k{color:var(--stem); min-width:64px; display:inline-block; font-size:0.78rem; text-transform:uppercase;}
+
+  footer{
+    text-align:center; padding:30px 0 50px; color:var(--stem);
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .interest-card{transition:none;}
+    .hero{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-name">Ruvarashe Mateta</div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#research">Research</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <div class="wrap hero">
+    <span class="eyebrow">Biotechnology &amp; Bioinformatics</span>
+    <h1>Ruvarashe Mateta</h1>
+    <p class="role">Reading the genome one variant at a time — currently tracing how genetic variation shapes <em>flavor and nutrition</em> in tomato, alongside applied data science and leadership work.</p>
+    <div class="hero-meta">
+      <span class="hero-tab"><span class="k">Location</span> Harare, Zimbabwe</span>
+      <span class="hero-tab"><span class="k">University</span> Midlands State University</span>
+      <span class="hero-tab"><span class="k">Focus</span> Genetic Variation &amp; Plant Genomics</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="about-text">
+        <span class="section-index">01 — Introduction</span>
+        <h2>About me</h2>
+        <p>I'm a 21-year-old Biotechnology &amp; Bioinformatics student from Harare, Zimbabwe, with a growing focus on computational genomics and applied data science. I'm currently a remote research intern studying <strong>genetic variation and the evolution of tomato flavor and nutrition</strong>, and I work on-site at the <strong>National Pathology Research and Diagnostic Centre Zimbabwe</strong>.</p>
+        <p>Alongside my research, I completed the <strong>Aspire Leaders Program (Cohort 2)</strong> and am now part of its Extended Leadership Program, while actively participating in the <strong>Mastuo Lab Data Science Program</strong> — building my skills at the intersection of biology, data, and leadership.</p>
+        <p>I'm drawn to problems where wet-lab biology meets computation: understanding what a genome is doing, and building the workflows to actually find out.</p>
+      </div>
+      <div class="fact-card">
+        <dl>
+          <dt>Currently</dt>
+          <dd>Biotechnology &amp; Bioinformatics student</dd>
+          <dt>Research internship</dt>
+          <dd>Genetic variation &amp; tomato flavor/nutrition evolution (remote)</dd>
+          <dt>On-site</dt>
+          <dd>National Pathology Research and Diagnostic Centre, Zimbabwe</dd>
+          <dt>Programs</dt>
+          <dd>Aspire Leaders Program · Mastuo Lab Data Science</dd>
+          <dt>Based in</dt>
+          <dd>Harare, Zimbabwe</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" style="background:var(--paper-raised); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <span class="section-index">02 — Background</span>
+      <h2>Education &amp; background</h2>
+      <p class="lede">From primary school in Harare to university-level biotechnology, alongside global leadership and applied research programs.</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">Current</div>
+          <div class="tl-title">Midlands State University</div>
+          <div class="tl-desc">Bachelor's studies in Biotechnology &amp; Bioinformatics.</div>
+        </div>
+        <div class="tl-item alt">
+          <div class="tl-dot"></div>
+          <div class="tl-year">Ongoing</div>
+          <div class="tl-title">Extended Leadership Program</div>
+          <div class="tl-desc">Continuing leadership development after graduating the Aspire Leaders Program (Cohort 2).</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">Ongoing</div>
+          <div class="tl-title">Mastuo Lab Data Science Program</div>
+          <div class="tl-desc">Training in applied data science and computational research methods.</div>
+        </div>
+        <div class="tl-item alt">
+          <div class="tl-dot"></div>
+          <div class="tl-year">Certificate</div>
+          <div class="tl-title">Genomac Institute Inc.</div>
+          <div class="tl-desc">Certificate of Participation — exposure to genomics and applied biotechnology practice.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">A' Level &amp; O' Level</div>
+          <div class="tl-title">Highfield 1 High School</div>
+          <div class="tl-desc">ZIMSEC Certificates — strong foundation in sciences, mathematics, and applied subjects.</div>
+        </div>
+        <div class="tl-item alt">
+          <div class="tl-dot"></div>
+          <div class="tl-year">Primary</div>
+          <div class="tl-title">Chembira Primary School</div>
+          <div class="tl-desc">Foundational education, Harare.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH INTERESTS -->
+  <section id="research">
+    <div class="wrap">
+      <span class="section-index">03 — Focus</span>
+      <h2>Research interests</h2>
+      <p class="lede">Centered on plant genomics, but reaching into the computational methods that make sense of it.</p>
+      <div class="interest-grid">
+        <div class="interest-card">
+          <span class="glyph">01</span>
+          <h3>Genetic variation</h3>
+          <p>How natural variation in the genome drives observable traits, particularly in crop species.</p>
+        </div>
+        <div class="interest-card">
+          <span class="glyph">02</span>
+          <h3>Tomato flavor &amp; nutrition genomics</h3>
+          <p>Tracing the genes and pathways behind flavor, sweetness, aroma, and nutritional quality in tomato.</p>
+        </div>
+        <div class="interest-card">
+          <span class="glyph">03</span>
+          <h3>Bioinformatics workflows</h3>
+          <p>Building reproducible pipelines for variant calling and genomic data processing.</p>
+        </div>
+        <div class="interest-card">
+          <span class="glyph">04</span>
+          <h3>Applied machine learning</h3>
+          <p>Using clustering and segmentation methods to find structure in biological data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" style="background:var(--paper-raised); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <span class="section-index">04 — Toolkit</span>
+      <h2>Skills</h2>
+      <p class="lede">Working across the lab bench, the command line, and the leadership table.</p>
+      <div class="skill-groups">
+        <div class="skill-group">
+          <h3>Bioinformatics &amp; Programming</h3>
+          <div class="tags">
+            <span class="tag">Bioinformatics workflows</span>
+            <span class="tag">Variant calling</span>
+            <span class="tag">Python</span>
+            <span class="tag">Git / GitHub</span>
+            <span class="tag">Linux / WSL</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Data Science</h3>
+          <div class="tags">
+            <span class="tag">Machine learning</span>
+            <span class="tag">Clustering</span>
+            <span class="tag">Segmentation</span>
+            <span class="tag">Data analysis</span>
+            <span class="tag">Data visualization</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Biotechnology &amp; Lab</h3>
+          <div class="tags">
+            <span class="tag">Genomics</span>
+            <span class="tag">Molecular biology</span>
+            <span class="tag">Applied biotechnology</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Leadership &amp; Collaboration</h3>
+          <div class="tags">
+            <span class="tag">Cross-team leadership</span>
+            <span class="tag">Applied research</span>
+            <span class="tag">Data science mentoring cohort</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Life Skills</h3>
+          <div class="tags">
+            <span class="tag">Multitasking</span>
+            <span class="tag">Industrious &amp; hard-working</span>
+            <span class="tag">Team player</span>
+            <span class="tag">Adaptability</span>
+            <span class="tag">Time management</span>
+            <span class="tag">Clear communication</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <span class="section-index">05 — Current work</span>
+      <h2>Projects</h2>
+      <p class="lede">What I'm actively researching, building, or learning right now.</p>
+      <div class="project-list">
+        <div class="project">
+          <span class="status">Remote · Internship</span>
+          <div>
+            <h3>Genetic Variation &amp; the Evolution of Tomato Flavor and Nutrition</h3>
+            <p>Investigating how genetic variation across tomato genomes has shaped the evolution of flavor and nutritional quality, connecting molecular data to trait-level outcomes.</p>
+            <span class="where">Remote research internship</span>
+          </div>
+        </div>
+        <div class="project">
+          <span class="status onsite">On-site</span>
+          <div>
+            <h3>Applied Diagnostics &amp; Pathology Research</h3>
+            <p>Hands-on work at a national pathology research and diagnostics center, building practical lab and applied biotechnology experience.</p>
+            <span class="where">National Pathology Research and Diagnostic Centre, Zimbabwe</span>
+          </div>
+        </div>
+        <div class="project">
+          <span class="status">In progress</span>
+          <div>
+            <h3>Mastuo Lab Data Science Program</h3>
+            <p>Expanding applied data science skills — from clustering and segmentation methods to broader computational research practice.</p>
+            <span class="where">Mastuo Lab</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <div>
+          <h2>Get in touch</h2>
+          <p class="lede2">Open to research collaborations, data science opportunities, and conversations about plant genomics. Reach out any of these ways.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:matetaruvarashe@gmail.com"><span class="k">Email</span> matetaruvarashe@gmail.com</a>
+          <a href="tel:+263787092223"><span class="k">Phone</span> +263 78 709 2223</a>
+          <a href="https://www.linkedin.com/in/ruvarashe-mateta-993ba3316" target="_blank" rel="noopener"><span class="k">LinkedIn</span> ruvarashe-mateta</a>
+          <a href="https://ruvamateta.github.io/" target="_blank" rel="noopener"><span class="k">GitHub</span> ruvamateta.github.io</a>
+          <a href="#" onclick="return false;" class="static" style="cursor:default;"><span class="k">Address</span> Block 24 Genevah, Western Triangle, Harare</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © <span id="year"></span> Ruvarashe Mateta · Built with HTML &amp; CSS · Hosted on GitHub Pages
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
