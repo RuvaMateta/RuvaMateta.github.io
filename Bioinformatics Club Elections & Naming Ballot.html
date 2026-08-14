@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bioinformatics Club Elections & Naming Ballot</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: #f5f5f3;
+            color: #1a1a18;
+            margin: 0;
+            padding: 24px 16px 60px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 6px;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin: 0 0 20px;
+        }
+        .deadline {
+            background: #fff4e5;
+            border: 1px solid #f0c987;
+            color: #8a5a00;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        .banner {
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            display: none;
+        }
+        .banner.closed {
+            background: #fde8e8;
+            color: #9b1c1c;
+        }
+        .banner.done {
+            background: #e6f4ea;
+            color: #1e7a34;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #e2e2df;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+        }
+        .card p.label {
+            font-weight: 600;
+            margin: 0 0 4px;
+            font-size: 15px;
+        }
+        .card p.hint {
+            font-size: 13px;
+            color: #777;
+            margin: 0 0 12px;
+        }
+        .pillwrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .pill {
+            border: 1px solid #d4d4d0;
+            background: #fafaf9;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: left;
+            transition: all .12s ease;
+        }
+        .pill:hover:not(:disabled) {
+            border-color: #999;
+            background: #f0f0ee;
+        }
+        .pill[aria-pressed="true"] {
+            background: #1a1a18;
+            color: #fff;
+            border-color: #1a1a18;
+        }
+        .pill:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+        .clubwrap {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .clubwrap .pill {
+            width: 100%;
+        }
+        #errorMsg {
+            color: #b3261e;
+            font-size: 13px;
+            margin: 0 0 10px;
+            display: none;
+        }
+        #submitBtn {
+            width: 100%;
+            background: #1a1a18;
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        #submitBtn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        footer {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bioinformatics Club Elections & Naming Ballot</h1>
+        <p class="subtitle">Vote for the club name and each officer position. Each candidate may only be voted into one position.</p>
+        <div class="deadline" id="deadlineNotice"></div>
+
+        <div class="banner closed" id="closedBanner">Voting has closed. Responses are no longer being accepted.</div>
+        <div class="banner done" id="doneBanner">✓ Your vote has been submitted. Thank you.</div>
+
+        <form id="voteForm">
+
+            <div class="card">
+                <p class="label">Club name</p>
+                <p class="hint">Pick the name you prefer for the club.</p>
+                <div class="clubwrap" id="clubWrap"></div>
+            </div>
+
+            <div id="positionsWrap"></div>
+
+            <p id="errorMsg"></p>
+            <button type="button" id="submitBtn">Submit vote</button>
+        </form>
+
+        <footer>Responses are recorded in your browser's local storage on this device/browser only.</footer>
+    </div>
+
+    <script>
+        const CANDIDATES = ["Cecily", "Davison", "Aaron", "Thando", "Daniel", "Ruvarashe", "Tendayi", "Member"];
+        const POSITIONS = [
+            "President",
+            "Vice President (VP of Research and Academics)",
+            "Secretary General",
+            "Treasurer",
+            "Director of Marketing and Communication",
+            "Workshops Coordinator",
+            "Research Coordinator",
+            "Director of Career and Industry Relations"
+        ];
+        const CLUB_NAMES = [
+            "Society for Bioinformatics Research and Collaboration (SBRC)",
+            "Association for Bioinformatics Research and Education Consortium (ABREC)",
+            "Bioinformatics and Computational Biology Association (BCBA)",
+            "Bioinformatics Research and Education Alliance for Student Training (BREAST)"
+        ];
+
+        // Deadline: upcoming Sunday at 11:59am, local time of each visitor's browser
+        function computeDeadline() {
+            const now = new Date();
+            const d = new Date(now);
+            const day = d.getDay(); // 0 = Sunday
+            let addDays = (7 - day) % 7;
+            d.setDate(d.getDate() + addDays);
+            d.setHours(11, 59, 0, 0);
+            if (d < now) d.setDate(d.getDate() + 7);
+            return d;
+        }
+        const DEADLINE = computeDeadline();
+        document.getElementById('deadlineNotice').textContent =
+            "Voting closes Sunday at 11:59am (" + DEADLINE.toLocaleDateString(undefined, { month: 'long', day: 'numeric' }) +
+            "), based on your device's local time.";
+
+        // State: club_name + all positions
+        const state = { club_name: null };
+        POSITIONS.forEach((_, i) => { state['pos_' + i] = null; });
+
+        // Club name pills
+        const clubWrap = document.getElementById('clubWrap');
+        CLUB_NAMES.forEach(name => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'pill';
+            btn.textContent = name;
+            btn.setAttribute('aria-pressed', 'false');
+            btn.addEventListener('click', () => {
+                state.club_name = name;
+                clubWrap.querySelectorAll('.pill').forEach(p => p.setAttribute('aria-pressed', p === btn ? 'true' :
+                    'false'));
+            });
+            clubWrap.appendChild(btn);
+        });
+
+        // Position pills
+        const posWrap = document.getElementById('positionsWrap');
+
+        function renderPositions() {
+            posWrap.innerHTML = '';
+            POSITIONS.forEach((pos, i) => {
+                const usedElsewhere = new Set(
+                    POSITIONS.map((_, j) => j).filter(j => j !== i).map(j => state['pos_' + j]).filter(Boolean)
+                );
+                const card = document.createElement('div');
+                card.className = 'card';
+                const label = document.createElement('p');
+                label.className = 'label';
+                label.textContent = pos;
+                card.appendChild(label);
+                const pw = document.createElement('div');
+                pw.className = 'pillwrap';
+                CANDIDATES.forEach(name => {
+                    const disabled = usedElsewhere.has(name);
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'pill';
+                    btn.textContent = name;
+                    btn.setAttribute('aria-pressed', state['pos_' + i] === name ? 'true' : 'false');
+                    if (disabled) btn.disabled = true;
+                    btn.addEventListener('click', () => {
+                        if (disabled) return;
+                        state['pos_' + i] = (state['pos_' + i] === name) ? null : name;
+                        renderPositions();
+                    });
+                    pw.appendChild(btn);
+                });
+                card.appendChild(pw);
+                posWrap.appendChild(card);
+            });
+        }
+        renderPositions();
+
+        function checkClosed() {
+            if (new Date() > DEADLINE) {
+                document.getElementById('closedBanner').style.display = 'block';
+                document.getElementById('voteForm').style.display = 'none';
+                return true;
+            }
+            return false;
+        }
+
+        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xppalydo';
+
+        document.getElementById('submitBtn').addEventListener('click', async () => {
+            const errEl = document.getElementById('errorMsg');
+            errEl.style.display = 'none';
+            if (checkClosed()) return;
+
+            if (!state.club_name) {
+                errEl.textContent = 'Please select a club name.';
+                errEl.style.display = 'block';
+                return;
+            }
+            for (let i = 0; i < POSITIONS.length; i++) {
+                if (!state['pos_' + i]) {
+                    errEl.textContent = 'Please select a candidate for every position (missing: ' + POSITIONS[i] + ').';
+                    errEl.style.display = 'block';
+                    return;
+                }
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const ballot = {
+                club_name: state.club_name,
+                submitted_at: new Date().toISOString()
+            };
+            POSITIONS.forEach((pos, i) => { ballot[pos] = state['pos_' + i]; });
+
+            try {
+                const res = await fetch(FORMSPREE_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify(ballot)
+                });
+                if (!res.ok) throw new Error('submit failed');
+                document.getElementById('voteForm').style.display = 'none';
+                document.getElementById('doneBanner').style.display = 'block';
+            } catch (e) {
+                errEl.textContent = 'Something went wrong submitting your vote. Please check your connection and try again.';
+                errEl.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit vote';
+            }
+        });
+
+        checkClosed();
+        setInterval(checkClosed, 30000);
+    </script>
+</body>
+</html>
